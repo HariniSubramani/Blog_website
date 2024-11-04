@@ -1,26 +1,42 @@
-// pages/Welcome.js
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const Welcome = ({ user }) => {
+const Welcome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const name = location.state?.name || 'Guest';
 
-  // Redirect to the Home page after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/');
-    }, 3000);
+      navigate('/home');
+    }, 3000); // Navigate after 3 seconds
+
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center">
-      <h1 className="text-5xl md:text-7xl font-bold text-indigo-700 animate-clean-boom">
-        Welcome, {user}!
+    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-blue-400 to-purple-600">
+      <h1 className="text-5xl font-bold text-white animate-pulse">
+        Welcome, {name}!
       </h1>
-      <p className="text-lg md:text-xl text-gray-600 mt-4 animate-clean-fade">
-        We're thrilled to have you here 🎉
-      </p>
+
+      <style jsx>{`
+        h1 {
+          animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+          0% {
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffcc00;
+          }
+          50% {
+            text-shadow: 0 0 20px #ffcc00, 0 0 30px #ff6600;
+          }
+          100% {
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffcc00;
+          }
+        }
+      `}</style>
     </div>
   );
 };

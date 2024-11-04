@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FiMenu } from "react-icons/fi";  // Menu icon
-import { MdClose } from "react-icons/md"; // Close icon
+import { FiMenu } from "react-icons/fi"; 
+import { MdClose } from "react-icons/md"; 
+import { FaSignOutAlt } from "react-icons/fa"; 
 
 const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleLogout = () => {
+ 
+    navigate("/"); 
   };
 
   return (
@@ -22,11 +29,7 @@ const Header = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <nav className="container mx-auto flex justify-between items-center">
-       
-        <Link
-          to="/"
-          className="text-3xl font-semibold text-white "
-        >
+        <Link to="/" className="text-3xl font-semibold text-white ">
           STHD Blogs
         </Link>
 
@@ -40,7 +43,6 @@ const Header = () => {
           </button>
         </div>
 
-        
         <ul className="hidden lg:flex space-x-10 transition-all">
           <li>
             <Link
@@ -78,9 +80,17 @@ const Header = () => {
               <span className="absolute inset-x-0 -bottom-1 h-1 bg-yellow-300 scale-x-0 transition-transform duration-300 ease-out hover:scale-x-100 origin-left"></span>
             </Link>
           </li>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="flex items-center text-lg font-semibold text-white transition-transform duration-300 hover:scale-110 hover:text-yellow-300"
+            >
+              <FaSignOutAlt className="mr-2" /> {/* Logout icon */}
+              Logout
+            </button>
+          </li>
         </ul>
 
-       
         <div
           className={`fixed top-0 right-0 h-full w-64 bg-indigo-700 transform transition-transform duration-500 ease-in-out z-40 ${
             isSidebarOpen ? "translate-x-0" : "translate-x-full"
@@ -130,11 +140,20 @@ const Header = () => {
                 Contact
               </Link>
             </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="flex items-center text-lg font-semibold text-white transition-transform duration-300 hover:scale-110 hover:text-yellow-300"
+                onClick={toggleSidebar}
+              >
+                <FaSignOutAlt className="mr-2" /> 
+                Logout
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
 
-      
       <div
         className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-300 via-orange-500 to-red-500 transition-opacity duration-500 ${
           isHovered ? "opacity-100" : "opacity-0"

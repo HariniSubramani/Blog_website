@@ -1,55 +1,52 @@
-// pages/Login.js
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ setIsAuthenticated, setUser }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    // Simple authentication logic
-    if (username.trim() && password === 'password') {
-      setIsAuthenticated(true); // Set user as authenticated
-      setUser(username); // Store the username
-      navigate('/welcome'); // Redirect to the welcome page
+  const handleLogin = () => {
+    if (email === "harini@gmail.com" && password === "harini123") {
+      navigate("/welcome", { state: { name } });
     } else {
-      alert('Invalid credentials. Try again.');
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gradient-to-r from-indigo-200 via-purple-100 to-pink-200">
-      <form
-        className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full"
-        onSubmit={handleLogin}
-      >
-        <h2 className="text-3xl font-semibold text-center mb-6 text-indigo-600">Login</h2>
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold text-center">Login</h2>
         <input
           type="text"
-          placeholder="Enter your name"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          required
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded mb-4"
         />
         <input
           type="password"
-          placeholder="Password (try 'password')"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          required
+          className="w-full p-2 border border-gray-300 rounded mb-4"
         />
         <button
-          type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg transition-all duration-300"
+          onClick={handleLogin}
+          className="w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700"
         >
           Login
         </button>
-      </form>
+      </div>
     </div>
   );
 };
