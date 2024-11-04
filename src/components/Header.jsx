@@ -46,7 +46,7 @@ const Header = () => {
         <ul className="hidden lg:flex space-x-10 transition-all">
           <li>
             <Link
-              to="/"
+              to="/home"
               className="relative text-lg font-semibold text-white tracking-wide transition-transform duration-300 hover:scale-110 hover:text-yellow-300"
             >
               Home
