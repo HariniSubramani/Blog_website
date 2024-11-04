@@ -14,7 +14,7 @@ const SinglePost = () => {
 
   const handleDelete = () => {
     deleteBlog(blog.id);
-    navigate('/');
+    navigate('/home');
   };
 
   return (

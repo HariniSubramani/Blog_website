@@ -14,7 +14,7 @@ const EditPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateBlog({ id: parseInt(id), title, description, content });
-    navigate('/');
+    navigate('/home');
   };
 
   return (

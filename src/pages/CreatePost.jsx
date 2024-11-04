@@ -8,27 +8,34 @@ const CreatePost = () => {
   const [description, setDescription] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
-  const [image, setImage] = useState(null); 
-  const [imagePreview, setImagePreview] = useState(null); 
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-      setImagePreview(URL.createObjectURL(file)); 
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  
     const date = new Date().toLocaleString();
 
-   
+    // Basic validation to check if all fields are filled
+    if (!title || !description || !content || !author) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    // Add the blog post
     addBlog({ title, description, content, author, date, image });
-    navigate('/');
+
+    // Redirect to the home page after creating a post
+    navigate('/home'); // Redirecting to the Home component
   };
 
   return (
@@ -62,7 +69,6 @@ const CreatePost = () => {
           onChange={(e) => setContent(e.target.value)}
         />
 
-        
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Upload Thumbnail</label>
           <div className="mt-1">
